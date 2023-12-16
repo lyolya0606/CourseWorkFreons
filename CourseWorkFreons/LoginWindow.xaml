@@ -5,14 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseWorkFreons"
         mc:Ignorable="d"
+        FontFamily="{StaticResource Inter}"
         Title="Вход" Height="250" Width="400"
         ResizeMode="NoResize">
-    <Grid>
-        <Label Content="Логин" HorizontalAlignment="Left" Margin="52,56,0,148" Width="54" FontSize="14" FontWeight="Bold" FontFamily="Inter Medium"/>
-        <Label Content="Пароль" Margin="44,102,294,102" FontSize="14" FontWeight="Bold" FontFamily="Inter Medium"/>
-        <TextBox x:Name="loginTextBox" Margin="132,60,45,152" TextWrapping="Wrap" Text="" FontSize="14" FontFamily="Inter Medium" VerticalContentAlignment="Center"/>
-        <PasswordBox x:Name="passwordTextBox" Margin="132,106,45,106" FontSize="14" FontFamily="Inter Medium" VerticalContentAlignment="Center"/>
-        <Button x:Name="loginButton" Content="Войти" HorizontalAlignment="Right" Margin="0,167,152,33" Width="96" RenderTransformOrigin="0.5,0.5" FontSize="14" FontFamily="Inter Medium"/>
+    <StackPanel Orientation="Vertical" VerticalAlignment="Top" Margin="0,60,0,0">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Label Content="Логин" FontSize="14" FontWeight="Bold" FontFamily="Inter Medium" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Width="64"/>
+            <TextBox x:Name="loginTextBox" Margin="40,0,0,0" TextWrapping="Wrap" Text="" FontSize="14" FontFamily="Inter Medium" VerticalContentAlignment="Center" Height="22" VerticalAlignment="Center" HorizontalAlignment="Left" Width="223"/>
+        </StackPanel>
 
-    </Grid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 15,0,0">
+            <Label Content="Пароль" FontSize="14" FontWeight="Bold" FontFamily="Inter Medium" Height="30" VerticalAlignment="Center" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Width="64"/>
+            <PasswordBox x:Name="passwordTextBox" Margin="40,0,0,0" FontSize="14" FontFamily="Inter Medium" VerticalContentAlignment="Center" Height="22" VerticalAlignment="Center" HorizontalAlignment="Left" Width="223"/>
+        </StackPanel>
+
+        <Button x:Name="loginButton" Content="Войти" Margin="0,15,0,33" RenderTransformOrigin="0.5,0.5" FontSize="14" FontFamily="Inter Medium" Height="34" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="96"/>
+
+    </StackPanel>
 </Window>

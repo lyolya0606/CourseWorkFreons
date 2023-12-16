@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CourseWorkFreons"
         mc:Ignorable="d"
-        Title="UserWindow" Height="450" Width="800">
+        FontFamily="{StaticResource Inter}"
+        Title="UserWindow" Height="450" Width="800"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <ComboBox HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Width="139" Height="30" FontSize="14"/>
     </Grid>
 </Window>
