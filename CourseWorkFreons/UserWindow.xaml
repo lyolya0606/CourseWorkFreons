@@ -6,9 +6,42 @@
         xmlns:local="clr-namespace:CourseWorkFreons"
         mc:Ignorable="d"
         FontFamily="{StaticResource Inter}"
-        Title="UserWindow" Height="450" Width="800"
-        ResizeMode="NoResize">
-    <Grid>
-        <ComboBox HorizontalAlignment="Left" Margin="122,77,0,0" VerticalAlignment="Top" Width="139" Height="30" FontSize="14"/>
-    </Grid>
+        Title="UserWindow" Height="800" Width="1020"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Width="53" HorizontalAlignment="Left">
+            <Button Content="Назад" Height="27" Width="53" Background="White" BorderBrush="White" Click="Button_Click" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" Width="277">
+            <Label Content="Марка:" FontSize="14" FontWeight="Bold"/>
+            <ComboBox x:Name="marks_ComboBox" Margin="20,0,0,0" VerticalAlignment="Center" Width="181" Height="30" VerticalContentAlignment="Center" FontSize="14" Background="White" BorderBrush="#FF030000" HorizontalAlignment="Center"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10, 10, 0, 0" Width="401" HorizontalAlignment="Left">
+            <Label Content="Наименование:" FontSize="14" Width="122" FontWeight="Bold"/>
+            <Label x:Name="name_label" FontSize="14" Margin="10, 0, 0, 0" Width="274"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 0">
+            <Label Content="Область применения:" FontSize="14" Width="167" FontWeight="Bold"/>
+            <TextBlock Name="area_label" FontSize="14" TextWrapping="Wrap" Margin="10, 0, 0, 0" Width="802" Height="43" VerticalAlignment="Center"/> 
+            <!--<Label x:Name="area_label" FontSize="13" Margin="10, 0, 0, 0" Width="auto" Height="auto" VerticalContentAlignment="Center"/>-->
+        </StackPanel>
+
+        <StackPanel Orientation="Vertical" Margin="10, 5, 10, 0">
+            <Label Content="Технологическая схема" FontSize="14" Width="182" FontWeight="Bold"/>
+            <Image x:Name="scheme_image" Width="auto" Height="auto"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="10, 10, 10, 20">
+            <StackPanel.ScrollOwner>
+                <ScrollViewer/>
+            </StackPanel.ScrollOwner>
+            <Label Content="Обозначения:" FontSize="14" Width="113" FontWeight="Bold"/>
+            <DataGrid x:Name="designation_DataGrid" Height="200" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
+        </StackPanel>
+       
+    </StackPanel>
 </Window>

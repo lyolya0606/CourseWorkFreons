@@ -17,5 +17,14 @@ namespace CourseWorkFreons {
         public LoginWindow() {
             InitializeComponent();
         }
+
+        private void loginButton_Click(object sender, RoutedEventArgs e) {
+            if (loginTextBox.Text == "user" && passwordTextBox.Password == "user") {
+                Hide();
+                new UserWindow().Show();
+                Close();
+            }
+        }
+
     }
 }
