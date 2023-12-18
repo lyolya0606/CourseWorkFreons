@@ -6,17 +6,17 @@
         xmlns:local="clr-namespace:CourseWorkFreons"
         mc:Ignorable="d"
         FontFamily="{StaticResource Inter}"
-        Title="UserWindow" Height="800" Width="1020"
+        Title="Характеристики хладонов" Height="800" Width="1020"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <StackPanel Orientation="Vertical">
         <StackPanel Width="53" HorizontalAlignment="Left">
-            <Button Content="Назад" Height="27" Width="53" Background="White" BorderBrush="White" Click="Button_Click" FontWeight="Bold"/>
+            <Button Content="Выйти" Height="27" Width="53" Background="White" BorderBrush="White" Click="Button_Click" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 0" Width="277">
             <Label Content="Марка:" FontSize="14" FontWeight="Bold"/>
-            <ComboBox x:Name="marks_ComboBox" Margin="20,0,0,0" VerticalAlignment="Center" Width="181" Height="30" VerticalContentAlignment="Center" FontSize="14" Background="White" BorderBrush="#FF030000" HorizontalAlignment="Center"/>
+            <ComboBox x:Name="marks_ComboBox" Margin="20,0,0,0" VerticalAlignment="Center" Width="181" Height="30" VerticalContentAlignment="Center" FontSize="14" Background="White" BorderBrush="#FF030000" HorizontalAlignment="Center" SelectionChanged="marks_ComboBox_SelectionChanged"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="10, 10, 0, 0" Width="401" HorizontalAlignment="Left">
@@ -40,7 +40,7 @@
                 <ScrollViewer/>
             </StackPanel.ScrollOwner>
             <Label Content="Обозначения:" FontSize="14" Width="113" FontWeight="Bold"/>
-            <DataGrid x:Name="designation_DataGrid" Height="200" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
+            <DataGrid x:Name="designation_DataGrid" Height="180" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
         </StackPanel>
        
     </StackPanel>

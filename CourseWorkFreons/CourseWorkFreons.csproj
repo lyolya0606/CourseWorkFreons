@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="scheme_freon134a.png" />
+    <None Remove="schemes\scheme_freon125.png" />
+    <None Remove="schemes\scheme_freon134a.png" />
+    <None Remove="schemes\scheme_freon227ea.png" />
+    <None Remove="schemes\scheme_freon227еа.png" />
+    <None Remove="schemes\scheme_freon23.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,13 +21,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="scheme_freon134a.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="schemes\scheme_freon134a.png">
+    <Resource Include="schemes\scheme_freon125.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Resource>
+    <Resource Include="schemes\scheme_freon134a.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="schemes\scheme_freon227ea.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="schemes\scheme_freon23.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

@@ -17,6 +17,9 @@ namespace CourseWorkFreons {
     /// Interaction logic for UserWindow.xaml
     /// </summary>
     public partial class UserWindow : Window {
+
+        DatabaseWork _databaseWork;
+        bool isFirstEnter;
         public UserWindow() {
             InitializeComponent();
             FirstEntering();
@@ -29,8 +32,9 @@ namespace CourseWorkFreons {
         }
 
         private void FirstEntering() {
-            DatabaseWork databaseWork = new DatabaseWork();
-            List<string> marks = databaseWork.GetMarks();
+            isFirstEnter = true;
+            _databaseWork = new DatabaseWork();
+            List<string> marks = _databaseWork.GetMarks();
 
             foreach (string mark in marks) {
                 marks_ComboBox.Items.Add(mark);
@@ -38,33 +42,21 @@ namespace CourseWorkFreons {
 
             marks_ComboBox.SelectedItem = marks[0];
 
-            string name = databaseWork.GetNameFreon(marks[0]);
+            string name = _databaseWork.GetNameFreon(marks[0]);
             name_label.Content = name;
 
-            string area = databaseWork.GetArea(marks[0]);
+            string area = _databaseWork.GetArea(marks[0]);
             area_label.Text = area;
 
-            string scheme = databaseWork.GetSchemeFreon(marks[0]);
+            string scheme = _databaseWork.GetSchemeFreon(marks[0]);
             scheme_image.Source = new BitmapImage(new Uri(scheme, UriKind.Relative));
 
-            List<Tuple<string, string>> equipment = databaseWork.GetEquipment(marks[0]);
+            List<Tuple<string, string>> equipment = _databaseWork.GetEquipment(marks[0]);
             FillTable(equipment);
-
-            //List<Tuple<string, string>> tuples = new List<Tuple<string, string>>();
-            //tuples.Add(new Tuple<string, string>("1", "jds"));
-            //tuples.Add(new Tuple<string, string>("2", "jdddddds"));
-            //tuples.Add(new Tuple<string, string>("3", "s"));
-
-            //FillTable(tuples);
         }
 
         private void SetUpColumns() {
             var column = new DataGridTextColumn {
-                Header = "Номер",
-                Binding = new Binding("Number")
-            };
-            designation_DataGrid.Columns.Add(column);
-            column = new DataGridTextColumn {
                 Header = "Обозначение",
                 Binding = new Binding("Designation")
             };
@@ -77,9 +69,33 @@ namespace CourseWorkFreons {
         }
 
         private record DataForTable {
-            public int Number { get; set; }
             public required string Designation { get; set; }
             public required string Equipment { get; set; }
+        }
+
+        private void marks_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (isFirstEnter) {
+                isFirstEnter = false;
+                return;
+            }
+            //designation_DataGrid.Items.Clear();
+            designation_DataGrid.ItemsSource = null;
+            designation_DataGrid.Columns.Clear();
+            //designation_DataGrid.Items.Refresh();
+
+            string mark = (string)marks_ComboBox.SelectedItem;
+
+            string name = _databaseWork.GetNameFreon(mark);
+            name_label.Content = name;
+
+            string area = _databaseWork.GetArea(mark);
+            area_label.Text = area;
+
+            string scheme = _databaseWork.GetSchemeFreon(mark);
+            scheme_image.Source = new BitmapImage(new Uri(scheme, UriKind.Relative));
+
+            List<Tuple<string, string>> equipment = _databaseWork.GetEquipment(mark);
+            FillTable(equipment);
         }
 
         private void FillTable(List<Tuple<string, string>> designations) {
@@ -87,7 +103,6 @@ namespace CourseWorkFreons {
             List<DataForTable> data = new();
             for (int i = 0; i < designations.Count; i++) {
                 data.Add(new DataForTable {
-                    Number = i + 1,
                     Designation = designations[i].Item2,
                     Equipment = designations[i].Item1 
                 });

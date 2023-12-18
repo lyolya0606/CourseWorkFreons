@@ -109,8 +109,7 @@ namespace CourseWorkFreons {
             SQLiteDataReader sqlite_datareader;
             SQLiteCommand sqlite_cmd;
             sqlite_cmd = _sqlite_conn.CreateCommand();
-            sqlite_cmd.CommandText = "SELECT scheme FROM stage JOIN recipe ON " +
-                "recipe.id_stage = stage.id_stage WHERE recipe.id_final_product = @id";
+            sqlite_cmd.CommandText = "SELECT scheme FROM recipe WHERE recipe.id_final_product = @id";
             sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
             sqlite_datareader = sqlite_cmd.ExecuteReader();
 
@@ -156,6 +155,36 @@ namespace CourseWorkFreons {
             }
 
             return equipment;
+        }
+
+        public DataTable GetTableFinalProduct() {
+            DataTable dt = new DataTable();
+            SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "SELECT * FROM final_product";
+            sqlite_datareader = sqlite_cmd.ExecuteReader();
+
+            dt.Columns.Add("ID", typeof(Int32));
+            dt.Columns.Add("Name", typeof(System.String));
+            dt.Columns.Add("Designation", typeof(System.String));
+            dt.Columns.Add("Area", typeof(System.String));
+
+            //SQLiteDataAdapter adapter = new SQLiteDataAdapter(sqlite_cmd);
+            //DataTable dataTable = new DataTable();
+            //adapter.Fill(dataTable);
+
+            //string query = "SELECT * FROM final_product";
+            //SQLiteCommand command = new SQLiteCommand(query, _sqlite_conn);
+            //SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+            //DataTable dataTable = new DataTable();
+            //adapter.Fill(dataTable);
+            while (sqlite_datareader.Read()) {
+                dt.Rows.Add(sqlite_datareader.GetInt32(0), sqlite_datareader.GetString(1), sqlite_datareader.GetString(2), sqlite_datareader.GetString(3));
+                //equipment.Add(new Tuple<string, string>(sqlite_datareader.GetString(0), sqlite_datareader.GetString(1)));
+            }
+
+            return dt;
         }
     }
 }

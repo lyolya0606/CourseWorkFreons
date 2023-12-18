@@ -24,6 +24,12 @@ namespace CourseWorkFreons {
                 new UserWindow().Show();
                 Close();
             }
+
+            if (loginTextBox.Text == "admin" && passwordTextBox.Password == "admin") {
+                Hide();
+                new AdminWindow().Show();
+                Close();
+            }
         }
 
     }
