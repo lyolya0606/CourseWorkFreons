@@ -140,6 +140,59 @@ namespace CourseWorkFreons {
             base_DataGrid.ItemsSource = data;
         }
 
+        private void base_DataGrid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e) {
+
+            //var selectedCell = e.AddedCells[0];
+            //var selectedRow = base_DataGrid.SelectedItem as DataRowView;
+
+            //var firstCellValue = selectedRow.Row.ItemArray[0];
+            //string value = firstCellValue.ToString();
+            //int selectedRow = base_DataGrid.SelectedIndex;
+            //var firstCellValue = selectedRow.Row.ItemArray[0].ToString();
+            //string x = base_DataGrid.ItemsSource[(IEnumerable<selectedRow>)];
+            //string id = (base_DataGrid.ItemsSource[selectedRow].Row[0].ToString();
+            //add_Button.Content = value;
+        }
+        string? currentID;
+        string? currentName;
+        string? currentDesignation;
+        string? currentArea;
+
+        private void base_DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            edit_Button.IsEnabled = true;
+            int selectedRow = base_DataGrid.SelectedIndex;
+
+            string table = (string)tables_ComboBox.SelectedItem;
+
+            if (table == "Готовая продукция") {
+                TextBlock? id = base_DataGrid.Columns[0].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentID = id?.Text;
+
+                TextBlock? name = base_DataGrid.Columns[1].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentName = name?.Text;
+               
+                
+                TextBlock? designation = base_DataGrid.Columns[2].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentDesignation = designation?.Text;
+                
+                TextBlock? area = base_DataGrid.Columns[3].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentArea = area?.Text;
+               
+            }
+
+
+        }
+
+        private void edit_Button_Click(object sender, RoutedEventArgs e) {
+            List<string> first = new() { "Название", currentName };
+            List<string> second = new() { "Марка", currentDesignation };
+            List<string> third = new() { "Область применения", currentArea };
+
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(true, currentID, first, second, third);
+            addAndEditWindow.ShowDialog();
+
+        }
+
         private void FillEquipment(List<List<string>> dt) {
             SetUpColumnsEquipment();
             List<DataForEquipment> data = new();

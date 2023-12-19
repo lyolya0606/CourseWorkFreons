@@ -20,11 +20,12 @@
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Center" Margin="0, 20, 0, 0">
-            <DataGrid x:Name="base_DataGrid" Height="320" IsReadOnly="True"  CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
+            <DataGrid x:Name="base_DataGrid" Height="320" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" SelectedCellsChanged="base_DataGrid_SelectedCellsChanged" SelectionChanged="base_DataGrid_SelectionChanged"/>
         </StackPanel>
 
-        <StackPanel Margin="0, 30, 0, 0" HorizontalAlignment="Right">
-            <Button FontWeight="Bold" Content="Изменить" Margin="0, 0, 20, 0" Background="White" HorizontalAlignment="Center" FontSize="14" Height="32" Width="87"/>
+        <StackPanel Margin="0, 30, 0, 0" HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button x:Name="add_Button" FontWeight="Bold" Content="Добавить" Margin="0, 0, 20, 0" Background="White" HorizontalAlignment="Center" FontSize="14" Height="32" Width="87"/>
+            <Button x:Name="edit_Button" FontWeight="Bold" Content="Изменить" Margin="0, 0, 20, 0" Background="White" HorizontalAlignment="Center" FontSize="14" Height="32" Width="87" IsEnabled="False" Click="edit_Button_Click"/>
         </StackPanel>
     </StackPanel>
 
