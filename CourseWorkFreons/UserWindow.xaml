@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:CourseWorkFreons"
         mc:Ignorable="d"
         FontFamily="{StaticResource Inter}"
-        Title="Характеристики хладонов" Height="800" Width="1020"
+        Title="Характеристики хладонов" Height="750" Width="1020"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
     <StackPanel Orientation="Vertical">
@@ -40,7 +40,7 @@
                 <ScrollViewer/>
             </StackPanel.ScrollOwner>
             <Label Content="Обозначения:" FontSize="14" Width="113" FontWeight="Bold"/>
-            <DataGrid x:Name="designation_DataGrid" Height="180" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
+            <DataGrid x:Name="designation_DataGrid" Height="130" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
         </StackPanel>
        
     </StackPanel>

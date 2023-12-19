@@ -56,9 +56,54 @@ namespace CourseWorkFreons {
             base_DataGrid.Columns.Add(column);
         }
 
-        private record DataForTable {
+        private record DataForFinalProduct {
+            public required string ID { get; set; }
+            public required string Name { get; set; }
             public required string Designation { get; set; }
-            public required string Equipment { get; set; }
+            public required string Area { get; set; }
+        }
+
+        private void SetUpColumnsEquipment() {
+            var column = new DataGridTextColumn {
+                Header = "Номер",
+                Binding = new Binding("ID")
+            };
+            base_DataGrid.Columns.Add(column);
+            column = new DataGridTextColumn {
+                Header = "Оборудование",
+                Binding = new Binding("Name")
+            };
+            base_DataGrid.Columns.Add(column);
+
+            column = new DataGridTextColumn {
+                Header = "Обозначение",
+                Binding = new Binding("Designation")
+            };
+            base_DataGrid.Columns.Add(column);
+        }
+
+        private record DataForEquipment {
+            public required string ID { get; set; }
+            public required string Name { get; set; }
+            public required string Designation { get; set; }
+        }
+
+        private void SetUpColumnsStage() {
+            var column = new DataGridTextColumn {
+                Header = "Номер",
+                Binding = new Binding("ID")
+            };
+            base_DataGrid.Columns.Add(column);
+            column = new DataGridTextColumn {
+                Header = "Название",
+                Binding = new Binding("Name")
+            };
+            base_DataGrid.Columns.Add(column);
+        }
+
+        private record DataForStage {
+            public required string ID { get; set; }
+            public required string Name { get; set; }
         }
 
         private void FirstEnter() {
@@ -71,16 +116,81 @@ namespace CourseWorkFreons {
 
             tables_ComboBox.SelectedIndex = 0;
 
-            SetUpColumnsFinalProduct();
-            DataTable dt = _databaseWork.GetTableFinalProduct();
+            //SetUpColumnsFinalProduct();
+            List<List<string>> dt = _databaseWork.GetTableFinalProduct();
 
-            foreach (var row in  dt.Rows) {
-                base_DataGrid.Items.Add(row);
+            FillFinalProduct(dt);
+
+
+
+        }
+
+        private void FillFinalProduct(List<List<string>> dt) {
+            SetUpColumnsFinalProduct();
+            List<DataForFinalProduct> data = new();
+            for (int i = 0; i < dt.Count; i++) {
+                data.Add(new DataForFinalProduct {
+                    ID = dt[i][0],
+                    Name = dt[i][1],
+                    Designation = dt[i][2],
+                    Area = dt[i][3]
+                }); 
             }
+
+            base_DataGrid.ItemsSource = data;
+        }
+
+        private void FillEquipment(List<List<string>> dt) {
+            SetUpColumnsEquipment();
+            List<DataForEquipment> data = new();
+            for (int i = 0; i < dt.Count; i++) {
+                data.Add(new DataForEquipment {
+                    ID = dt[i][0],
+                    Name = dt[i][1],
+                    Designation = dt[i][2]
+                });
+            }
+
+            base_DataGrid.ItemsSource = data;
+        }
+
+        private void FillStage(List<List<string>> dt) {
+            SetUpColumnsStage();
+            List<DataForStage> data = new();
+            for (int i = 0; i < dt.Count; i++) {
+                data.Add(new DataForStage {
+                    ID = dt[i][0],
+                    Name = dt[i][1]
+                });
+            }
+
+            base_DataGrid.ItemsSource = data;
         }
 
         private void tables_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            if (isFirstEnter) {
+                isFirstEnter = false;
+                return;
+            }
 
+            base_DataGrid.ItemsSource = null;
+            base_DataGrid.Columns.Clear();
+
+            string table = (string)tables_ComboBox.SelectedItem;
+
+            if (table == "Готовая продукция") {
+                List<List<string>> dt = _databaseWork.GetTableFinalProduct();
+
+                FillFinalProduct(dt);
+            } else if (table == "Оборудование") {
+                List<List<string>> dt = _databaseWork.GetTableEquipment();
+
+                FillEquipment(dt);
+            } else {
+                List<List<string>> dt = _databaseWork.GetTableStage();
+
+                FillStage(dt);
+            }
         }
     }
 }
