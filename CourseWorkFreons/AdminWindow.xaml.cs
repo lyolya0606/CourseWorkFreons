@@ -157,6 +157,7 @@ namespace CourseWorkFreons {
         string? currentName;
         string? currentDesignation;
         string? currentArea;
+        string currentTable;
 
         private void base_DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             edit_Button.IsEnabled = true;
@@ -177,7 +178,7 @@ namespace CourseWorkFreons {
                 
                 TextBlock? area = base_DataGrid.Columns[3].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
                 currentArea = area?.Text;
-               
+                currentTable = "Готовая продукция";
             }
 
 
@@ -188,7 +189,7 @@ namespace CourseWorkFreons {
             List<string> second = new() { "Марка", currentDesignation };
             List<string> third = new() { "Область применения", currentArea };
 
-            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(true, currentID, first, second, third);
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(currentTable, true, currentID, first, second, third);
             addAndEditWindow.ShowDialog();
 
         }

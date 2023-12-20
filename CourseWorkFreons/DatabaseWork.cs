@@ -219,5 +219,18 @@ namespace CourseWorkFreons {
             return table;
 
         }
+
+        public void UpdateFinalProduct(string id, string name, string designation, string area) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "UPDATE final_product SET name = @name, designation = @designation, " +
+                "application_area = @area WHERE id_final_product = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@designation", designation));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@area", area));
+            sqlite_cmd.ExecuteNonQuery();
+        }
     }
 }

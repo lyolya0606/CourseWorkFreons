@@ -19,17 +19,19 @@ namespace CourseWorkFreons {
     public partial class AddAndEditWindow : Window {
         private readonly bool _isEdit;
         private readonly string _id;
+        private readonly string _table;
         private List<string> _firstLabel = new();
         private List<string> _secondLabel = new();
         private List<string> _thirdLabel = new();
 
-        public AddAndEditWindow(bool isEdit, string id, List<string> firstLabel, List<string> secondLabel, List<string> thirdLabel) {
+        public AddAndEditWindow(string table, bool isEdit, string id, List<string> firstLabel, List<string> secondLabel, List<string> thirdLabel) {
             InitializeComponent();
             _isEdit = isEdit;
             _id = id;
             _firstLabel = firstLabel;
             _secondLabel = secondLabel;
             _thirdLabel = thirdLabel;
+            _table = table;
             ShowLabels();
         }
 
@@ -42,6 +44,13 @@ namespace CourseWorkFreons {
 
             third_Label.Content = _thirdLabel[0];
             third_TextBox.Text = _thirdLabel[1];
+        }
+
+        private void OK_Button_Click(object sender, RoutedEventArgs e) {
+            DatabaseWork databaseWork = new DatabaseWork();
+            if (_table == "Готовая продукция") {
+                databaseWork.UpdateFinalProduct(_id, first_TextBox.Text, second_TextBox.Text, third_TextBox.Text);
+            }
         }
     }
 }
