@@ -232,5 +232,85 @@ namespace CourseWorkFreons {
             sqlite_cmd.Parameters.Add(new SQLiteParameter("@area", area));
             sqlite_cmd.ExecuteNonQuery();
         }
+
+        public void UpdateEquipment(string id, string name, string designation) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "UPDATE equipment SET name = @name, designation = @designation WHERE id_equipment = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@designation", designation));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void UpdateStage(string id, string name) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "UPDATE stage SET name = @name WHERE id_stage = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void InsertFinalProduct(string name, string designation, string area) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "INSERT INTO final_product (name, designation, application_area) " +
+                                $"VALUES (@name, @designation, @area)";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@designation", designation));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@area", area));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void InsertEquipment(string name, string designation) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "INSERT INTO equipment (name, designation) " +
+                                $"VALUES (@name, @designation)";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@designation", designation));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void InsertStage(string name) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "INSERT INTO stage (name) VALUES (@name)";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@name", name));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void DeleteFinalProduct(string id) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "DELETE FROM final_product WHERE id_final_product = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void DeleteEquipment(string id) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "DELETE FROM equipment WHERE id_equipment = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.ExecuteNonQuery();
+        }
+
+        public void DeleteStage(string id) {
+            //SQLiteDataReader sqlite_datareader;
+            SQLiteCommand sqlite_cmd;
+            sqlite_cmd = _sqlite_conn.CreateCommand();
+            sqlite_cmd.CommandText = "DELETE FROM stage WHERE id_stage = @id";
+            sqlite_cmd.Parameters.Add(new SQLiteParameter("@id", id));
+            sqlite_cmd.ExecuteNonQuery();
+        }
     }
 }

@@ -160,8 +160,12 @@ namespace CourseWorkFreons {
         string currentTable;
 
         private void base_DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+
             edit_Button.IsEnabled = true;
+            delete_Button.IsEnabled = true;
             int selectedRow = base_DataGrid.SelectedIndex;
+
+            if (selectedRow == -1) { return; }
 
             string table = (string)tables_ComboBox.SelectedItem;
 
@@ -179,18 +183,182 @@ namespace CourseWorkFreons {
                 TextBlock? area = base_DataGrid.Columns[3].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
                 currentArea = area?.Text;
                 currentTable = "Готовая продукция";
+
+            } else if (table == "Оборудование") {
+                TextBlock? id = base_DataGrid.Columns[0].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentID = id?.Text;
+
+                TextBlock? name = base_DataGrid.Columns[1].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentName = name?.Text;
+
+                TextBlock? designation = base_DataGrid.Columns[2].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentDesignation = designation?.Text;
+
+                currentTable = "Оборудование";
+            } else {
+                TextBlock? id = base_DataGrid.Columns[0].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentID = id?.Text;
+
+                TextBlock? name = base_DataGrid.Columns[1].GetCellContent(base_DataGrid.Items[selectedRow]) as TextBlock;
+                currentName = name?.Text;
+
+                currentTable = "Стадия";
             }
 
 
         }
 
         private void edit_Button_Click(object sender, RoutedEventArgs e) {
-            List<string> first = new() { "Название", currentName };
-            List<string> second = new() { "Марка", currentDesignation };
-            List<string> third = new() { "Область применения", currentArea };
+            List<string> first = new();
+            List<string> second = new();
+            List<string> third = new();
+            if (currentTable == "Готовая продукция") {
+                first.Add("Название");
+                first.Add(currentName);
+                second.Add("Марка");
+                second.Add(currentDesignation);
+                third.Add("Область применения");
+                third.Add(currentArea);
+            } else if (currentTable == "Оборудование") {
+                first.Add("Название");
+                first.Add(currentName);
+                second.Add("Обозначение");
+                second.Add(currentDesignation);
+                third.Add("");
+                third.Add("");
+            } else {
+                first.Add("Название");
+                first.Add(currentName);
+                second.Add("");
+                second.Add("");
+                third.Add("");
+                third.Add("");
+            }
 
             AddAndEditWindow addAndEditWindow = new AddAndEditWindow(currentTable, true, currentID, first, second, third);
             addAndEditWindow.ShowDialog();
+            base_DataGrid.ItemsSource = null;
+            base_DataGrid.Columns.Clear();
+
+            if (currentTable == "Готовая продукция") {
+                List<List<string>> dt = _databaseWork.GetTableFinalProduct();
+                base_DataGrid.SelectedIndex = -1;
+                FillFinalProduct(dt);
+            } else if (currentTable == "Оборудование") {
+                List<List<string>> dt = _databaseWork.GetTableEquipment();
+                base_DataGrid.SelectedIndex = -1;
+                FillEquipment(dt);
+            } else {
+                List<List<string>> dt = _databaseWork.GetTableStage();
+                base_DataGrid.SelectedIndex = -1;
+                FillStage(dt);
+            }
+            
+
+
+        }
+
+        private void add_Button_Click(object sender, RoutedEventArgs e) {
+            string table = (string)tables_ComboBox.SelectedItem;
+            List<string> first = new();
+            List<string> second = new();
+            List<string> third = new();
+            if (table == "Готовая продукция") {
+                first.Add("Название");
+                first.Add("");
+                second.Add("Марка");
+                second.Add("");
+                third.Add("Область применения");
+                third.Add("");
+            } else if (table == "Оборудование") {
+                first.Add("Название");
+                first.Add("");
+                second.Add("Обозначение");
+                second.Add("");
+                third.Add("");
+                third.Add("");
+            } else {
+                first.Add("Название");
+                first.Add("");
+                second.Add("");
+                second.Add("");
+                third.Add("");
+                third.Add("");
+            }
+
+            AddAndEditWindow addAndEditWindow = new AddAndEditWindow(table, false, currentID, first, second, third);
+            addAndEditWindow.ShowDialog();
+            base_DataGrid.ItemsSource = null;
+            base_DataGrid.Columns.Clear();
+
+            if (table == "Готовая продукция") {
+                List<List<string>> dt = _databaseWork.GetTableFinalProduct();
+                base_DataGrid.SelectedIndex = -1;
+                FillFinalProduct(dt);
+            } else if (table == "Оборудование") {
+                List<List<string>> dt = _databaseWork.GetTableEquipment();
+                base_DataGrid.SelectedIndex = -1;
+                FillEquipment(dt);
+            } else {
+                List<List<string>> dt = _databaseWork.GetTableStage();
+                base_DataGrid.SelectedIndex = -1;
+                FillStage(dt);
+            }
+        }
+
+        private void delete_Button_Click(object sender, RoutedEventArgs e) {
+            if (currentTable == "Готовая продукция") {
+                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить запись из таблицы Готовая продукция:" +
+                    $"{currentName} {currentDesignation}?", "Удаление записи", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes) {
+                    _databaseWork.DeleteFinalProduct(currentID);
+                } else {
+                    return;
+                }
+
+            } else if (currentTable == "Оборудование") {
+                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить запись из таблицы Оборудование:" +
+                     $"{currentName} {currentDesignation}?", "Удаление записи", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes) {
+                    _databaseWork.DeleteEquipment(currentID);
+                } else {
+                    return;
+                }
+
+            } else {
+                MessageBoxResult result = MessageBox.Show($"Вы действительно хотите удалить запись из таблицы Стадия:" +
+                     $"{currentName}?", "Удаление записи", MessageBoxButton.YesNo);
+
+                if (result == MessageBoxResult.Yes) {
+                    _databaseWork.DeleteStage(currentID);
+                } else {
+                    return;
+                }
+            }
+
+
+
+
+            base_DataGrid.ItemsSource = null;
+            base_DataGrid.Columns.Clear();
+
+            if (currentTable == "Готовая продукция") {
+                List<List<string>> dt = _databaseWork.GetTableFinalProduct();
+                base_DataGrid.SelectedIndex = -1;
+                FillFinalProduct(dt);
+            } else if (currentTable == "Оборудование") {
+                List<List<string>> dt = _databaseWork.GetTableEquipment();
+                base_DataGrid.SelectedIndex = -1;
+                FillEquipment(dt);
+            } else {
+                List<List<string>> dt = _databaseWork.GetTableStage();
+                base_DataGrid.SelectedIndex = -1;
+                FillStage(dt);
+            }
+
+
 
         }
 

@@ -48,9 +48,26 @@ namespace CourseWorkFreons {
 
         private void OK_Button_Click(object sender, RoutedEventArgs e) {
             DatabaseWork databaseWork = new DatabaseWork();
-            if (_table == "Готовая продукция") {
-                databaseWork.UpdateFinalProduct(_id, first_TextBox.Text, second_TextBox.Text, third_TextBox.Text);
+            if (_isEdit) {     
+                if (_table == "Готовая продукция") {
+                    databaseWork.UpdateFinalProduct(_id, first_TextBox.Text, second_TextBox.Text, third_TextBox.Text);
+
+                } else if (_table == "Оборудование") {
+                    databaseWork.UpdateEquipment(_id, first_TextBox.Text, second_TextBox.Text);
+                } else {
+                    databaseWork.UpdateStage(_id, first_TextBox.Text);
+                }
+            } else {
+                if (_table == "Готовая продукция") {
+                    databaseWork.InsertFinalProduct(first_TextBox.Text, second_TextBox.Text, third_TextBox.Text);
+
+                } else if (_table == "Оборудование") {
+                    databaseWork.InsertEquipment(first_TextBox.Text, second_TextBox.Text);
+                } else {
+                    databaseWork.InsertStage(first_TextBox.Text);
+                }
             }
+            this.Close();
         }
     }
 }

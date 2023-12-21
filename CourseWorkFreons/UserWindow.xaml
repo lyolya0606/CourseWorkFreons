@@ -40,7 +40,7 @@
                 <ScrollViewer/>
             </StackPanel.ScrollOwner>
             <Label Content="Обозначения:" FontSize="14" Width="113" FontWeight="Bold"/>
-            <DataGrid x:Name="designation_DataGrid" Height="130" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible"/>
+            <DataGrid x:Name="designation_DataGrid" Height="130" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" d:ItemsSource="{d:SampleData ItemCount=5}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" Background="White"/>
         </StackPanel>
        
     </StackPanel>
